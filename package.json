@@ -1,6 +1,6 @@
 {
-  "name": "mock-local-storage",
-  "version": "1.1.15",
+  "name": "@rproenza/configurable-mock-local-storage",
+  "version": "1.2.0",
   "description": "Mock localStorage for headless unit tests",
   "main": "lib/mock-localstorage.js",
   "module": "src/mock-localstorage.js",
@@ -10,9 +10,12 @@
     "compile": "babel -d lib/ src/",
     "prepare": "npm run compile"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/letsrock-today/mock-local-storage.git"
+    "url": "https://github.com/rproenza86/mock-local-storage.git"
   },
   "keywords": [
     "localstorage",

@@ -1,6 +1,5 @@
 // Mock localStorage
 (function () {
-
     function createStorage() {
         let s = {},
             noopCallback = () => {},
@@ -15,11 +14,11 @@
                     }
                     s[k] = v + '';
                 };
-            }
+            },
         });
         Object.defineProperty(s, 'getItem', {
             get: () => {
-                return k => {
+                return (k) => {
                     k = k + '';
                     if (s.hasOwnProperty(k)) {
                         return s[k];
@@ -27,17 +26,17 @@
                         return null;
                     }
                 };
-            }
+            },
         });
         Object.defineProperty(s, 'removeItem', {
             get: () => {
-                return k => {
+                return (k) => {
                     k = k + '';
                     if (s.hasOwnProperty(k)) {
                         delete s[k];
                     }
                 };
-            }
+            },
         });
         Object.defineProperty(s, 'clear', {
             get: () => {
@@ -48,54 +47,60 @@
                         }
                     }
                 };
-            }
+            },
         });
         Object.defineProperty(s, 'length', {
             get: () => {
                 return Object.keys(s).length;
-            }
+            },
         });
-        Object.defineProperty(s, "key", {
-            value: k => {
+        Object.defineProperty(s, 'key', {
+            value: (k) => {
                 let key = Object.keys(s)[k];
-                return (!key) ? null : key;
+                return !key ? null : key;
             },
         });
         Object.defineProperty(s, 'itemInsertionCallback', {
             get: () => {
                 return _itemInsertionCallback;
             },
-            set: v => {
+            set: (v) => {
                 if (!v || typeof v != 'function') {
                     v = noopCallback;
                 }
                 _itemInsertionCallback = v;
-            }
+            },
         });
         return s;
     }
 
-    const global = require("global")
-    const window = require("global/window")
+    const global = require('global');
+    const window = require('global/window');
 
     Object.defineProperty(global, 'Storage', {
-      value: createStorage,
+        value: createStorage,
+        configurable: true,
     });
     Object.defineProperty(window, 'Storage', {
-      value: createStorage,
+        value: createStorage,
+        configurable: true,
     });
 
     Object.defineProperty(global, 'localStorage', {
-      value: createStorage(),
+        value: createStorage(),
+        configurable: true,
     });
     Object.defineProperty(window, 'localStorage', {
-      value: global.localStorage,
+        value: global.localStorage,
+        configurable: true,
     });
 
     Object.defineProperty(global, 'sessionStorage', {
-      value: createStorage(),
+        value: createStorage(),
+        configurable: true,
     });
     Object.defineProperty(window, 'sessionStorage', {
-      value: global.sessionStorage,
+        value: global.sessionStorage,
+        configurable: true,
     });
-}());
+})();
